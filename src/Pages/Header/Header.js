@@ -11,10 +11,10 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import logo from '../../images/logo.png'
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
+const pages = ['Foods', 'Pricing', 'Admin Panel'];
+const settings = ['Profile', 'Account', 'Dashboard'];
 
 const Header = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -95,6 +95,7 @@ const Header = () => {
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
                 <Button
+                  style={{color: 'black'}}
                   key={page}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}
@@ -107,7 +108,7 @@ const Header = () => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="User" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt="User" style={{backgroundColor: 'black'}} src="/static/images/avatar/2.jpg" />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -131,6 +132,9 @@ const Header = () => {
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
+                <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">ABC</Typography>
+                </MenuItem>
               </Menu>
             </Box>
           </Toolbar>
