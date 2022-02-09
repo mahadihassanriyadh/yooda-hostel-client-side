@@ -7,6 +7,7 @@ const AllFoods = () => {
             safdsa
         </div>
     );
+    
 };
 
 export default AllFoods;

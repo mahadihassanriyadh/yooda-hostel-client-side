@@ -3,6 +3,7 @@ import './App.css';
 import AddFood from './Pages/Admin/AddFood/AddFood';
 import AddStudent from './Pages/Admin/AddStudent/AddStudent';
 import AdminDashboard from './Pages/Admin/AdminDashboard/AdminDashboard';
+import AdminDashboardHome from './Pages/Admin/AdminDashboardHome/AdminDashboardHome';
 import AllFoods from './Pages/Admin/AllFoods/AllFoods';
 import AllStudents from './Pages/Admin/AllStudents/AllStudents';
 import Foods from './Pages/Foods/Foods';
@@ -23,6 +24,11 @@ function App() {
           <Route path="/register" element={<Register />}></Route>
           <Route path="/foods" element={<Foods />}></Route>
           <Route path="/dashboard" element={<PrivateRoute> <AdminDashboard /> </PrivateRoute>}>
+          <Route path={`/dashboard`} element={
+            <AdminRoute>
+                <AdminDashboardHome></AdminDashboardHome>
+            </AdminRoute>
+          }></Route>
           <Route path={`/dashboard/allFoods`} element={
             <AdminRoute>
                 <AllFoods></AllFoods>
