@@ -11,14 +11,15 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import { NavLink } from 'react-router-dom';
+import useFirebase from '../../hooks/useFirebase';
 
-
-const pages = ['Foods', 'Pricing', 'Admin Panel'];
-const settings = ['Profile', 'Account', 'Dashboard'];
 
 const Header = () => {
+  const { user, logout } = useFirebase()
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    
   
     const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
@@ -45,7 +46,7 @@ const Header = () => {
               component="div"
               sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
             >
-              Yooda Hostel
+              <NavLink style={{color: "white", textDecoration: 'none'}} to="/">Yooda Hostel</NavLink>
             </Typography>
   
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -77,11 +78,13 @@ const Header = () => {
                   display: { xs: 'block', md: 'none' },
                 }}
               >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">Foods</Typography>
                   </MenuItem>
-                ))}
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">Admin Panel</Typography>
+                  </MenuItem>
+
               </Menu>
             </Box>
             <Typography
@@ -90,19 +93,23 @@ const Header = () => {
               component="div"
               sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
             >
-              Yooda Hostel
+              <NavLink style={{color: "white", textDecoration: 'none'}} to="/">Yooda Hostel</NavLink>
             </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page) => (
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }}}>
                 <Button
                   style={{color: 'black'}}
-                  key={page}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'white', display: 'block', fontWeight: 'bold' }}
                 >
-                  {page}
+                  <NavLink style={{textDecoration: 'none', color: 'black'}} to="/foods">Foods</NavLink>
                 </Button>
-              ))}
+                <Button
+                  style={{color: 'black'}}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block', fontWeight: 'bold'}}
+              >
+                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/dashboard">Admin Panel</NavLink>
+                </Button>
             </Box>
   
             <Box sx={{ flexGrow: 0 }}>
@@ -127,14 +134,23 @@ const Header = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/dashboard">
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">Admin Panel</Typography>
                   </MenuItem>
-                ))}
-                <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">ABC</Typography>
-                </MenuItem>
+                </NavLink>
+                {
+                  user.email ?
+                  <MenuItem onClick={logout}>
+                    <Button style={{color: "#e53935"}} variant="text">Logout</Button>
+                  </MenuItem>
+                    :
+                  <NavLink style={{ textDecoration: 'none', color: 'black' }} to="/login">
+                    <MenuItem onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">Login</Typography>
+                    </MenuItem>
+                  </NavLink>
+                }
               </Menu>
             </Box>
           </Toolbar>

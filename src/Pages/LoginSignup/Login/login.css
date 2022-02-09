@@ -1,0 +1,30 @@
+.loginForm{
+    margin-top: 70px;
+}
+.loginForm p{
+    margin: 0 0;
+}
+.loginForm input{
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+    width: 75%;
+    height: 40px;
+    font-size: 20px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 5px 20px;
+    background-color: rgb(246, 255, 246);
+}
+.loginForm .loginSubmit{
+    background-color: #7ed956;
+    color: white;
+    width: 30%;
+    cursor: pointer;
+}
+.register-now-msg{
+    margin-top: 15px;
+}
+.register-now{
+    color: rgb(57, 126, 255);
+}
