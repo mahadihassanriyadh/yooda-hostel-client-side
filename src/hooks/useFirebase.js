@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword, signOut, onAuthStateChanged, signInWithEmailAndPassword, GoogleAuthProvider, updateProfile, getIdToken, signInWithPopup } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signOut, onAuthStateChanged, signInWithEmailAndPassword, GoogleAuthProvider, updateProfile, getIdToken } from "firebase/auth";
 
 import { useEffect } from "react";
 import initializeFirebase from "../Pages/LoginSignup/Firebase/Firebase.init";
@@ -60,22 +60,7 @@ const useFirebase = () => {
             .finally(() => setIsLoading(false))
     }
 
-    const signInWithGoogle = (location, navigate) => {
-        setIsLoading(true)
-        signInWithPopup(auth, googleProvider)
-            .then((result) => {
-                const user = result.user;
-                saveUser(user.email, user.displayName, 'PUT')
-                setError('');
-                const destination = location?.state?.from || '/';
-                navigate(destination);
-            }).catch((error) => {
-                setError(error.message);
-            })
-            .finally(() => {
-                setIsLoading(false)
-            });
-    }
+
 
     // Observe user state
     useEffect(() => {
@@ -93,14 +78,15 @@ const useFirebase = () => {
             setIsLoading(false);
         });
         return () => unsubscribe;
-    }, [])
+    }, [auth])
 
 
-    // useEffect(() => {
-    //     fetch(`https://shrouded-plains-75549.herokuapp.com/users/${user.email}`)
-    //         .then(res => res.json())
-    //         .then(data => setAdmin(data.admin))
-    // }, [user.email])
+    useEffect(() => {
+        fetch(`http://localhost:5000/users/${user.email}`)
+            .then(res => res.json())
+            .then(data => setAdmin(data.admin))
+    }, [user.email, admin])
+
 
     const logout = () => {
         setIsLoading(true)
@@ -114,7 +100,7 @@ const useFirebase = () => {
 
     const saveUser = (email, displayName, method) => {
         const user = { email, displayName };
-        fetch('https://shrouded-plains-75549.herokuapp.com/users', {
+        fetch('http://localhost:5000/users', {
             method: method,
             headers: {
                 'content-type': 'application/json'
@@ -133,8 +119,7 @@ const useFirebase = () => {
         loginUser,
         isLoading,
         error,
-        setError,
-        signInWithGoogle
+        setError
     }
 }
 

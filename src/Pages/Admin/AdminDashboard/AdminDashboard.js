@@ -7,24 +7,24 @@ import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import AddIcon from '@mui/icons-material/Add';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, Outlet } from 'react-router-dom';
+import useFirebase from '../../../hooks/useFirebase';
 
 const drawerWidth = 240;
 
 const AdminDashboard = (props) => {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const { admin } = useFirebase();
   
     const handleDrawerToggle = () => {
       setMobileOpen(!mobileOpen);
@@ -35,30 +35,39 @@ const AdminDashboard = (props) => {
         <Toolbar />
         <Divider />
         <List>
-            <ListItem button>
+            
+          <NavLink style={{textDecoration: 'none', color: 'gray'}} to="/dashboard/allfoods">
+              <ListItem button>
               <ListItemIcon>
                 <RestaurantIcon />
               </ListItemIcon>
               <ListItemText>Foods</ListItemText>
-            </ListItem>    
-            <ListItem button>
+              </ListItem>  
+            </NavLink>
+          <NavLink style={{textDecoration: 'none', color: 'gray'}} to="/dashboard/addFood">
+              <ListItem button>
               <ListItemIcon>
-              <AddCircleIcon />
+                <AddCircleIcon />
               </ListItemIcon>
               <ListItemText>Add Food</ListItemText>
-            </ListItem>    
-            <ListItem button>
+              </ListItem>  
+            </NavLink>
+          <NavLink style={{textDecoration: 'none', color: 'gray'}} to="/dashboard/allStudents">
+              <ListItem button>
               <ListItemIcon>
                 <PeopleAltIcon />
               </ListItemIcon>
               <ListItemText>Students</ListItemText>
-            </ListItem>    
-            <ListItem button>
-            <ListItemIcon>
-            <AddCircleIcon />
+              </ListItem>  
+            </NavLink>
+          <NavLink style={{textDecoration: 'none', color: 'gray'}} to="/dashboard/addStudent">
+              <ListItem button>
+              <ListItemIcon>
+                <AddCircleIcon />
               </ListItemIcon>
               <ListItemText>Add Student</ListItemText>
-            </ListItem>    
+              </ListItem>  
+            </NavLink> 
         </List>
       </div>
     );
@@ -128,33 +137,10 @@ const AdminDashboard = (props) => {
           sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
         >
           <Toolbar />
-          <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-            enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-            imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-            Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-            Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-            adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-            nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-            leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-            feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-            sapien faucibus et molestie ac.
-          </Typography>
-          <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-            eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-            neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-            tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-            sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-            tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-            gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-            et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-            tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-            eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-            posuere sollicitudin aliquam ultrices sagittis orci a.
-          </Typography>
+          
+          {/* for nested routes */}
+          <Outlet></Outlet>
+
         </Box>
       </Box>
     );

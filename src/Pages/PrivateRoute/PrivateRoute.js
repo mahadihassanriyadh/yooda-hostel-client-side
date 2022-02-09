@@ -7,13 +7,14 @@ import useFirebase from '../../hooks/useFirebase';
 
 
 const PrivateRoute = ({ children, ...rest }) => {
-    console.log(999999999999)
     const { user, isLoading } = useFirebase()
-    console.log(user)
     const location = useLocation();
-    if (isLoading) { return <CircularProgress /> }
+    if (isLoading) {
+        console.log(isLoading)
+        return <CircularProgress color="success" />
+    }
 
-    if (user?.email) {
+    if (user.email) {
         return children;
     }
     return <Navigate to="/login" state={{from: location}} />
